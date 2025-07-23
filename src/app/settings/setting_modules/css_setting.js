@@ -24,6 +24,14 @@ export function CSSSetting(name, type) {
     }
 
     const load = () => {
+
+        if (document.getElementById("styleLocation") == null) {
+            let child = document.createElement("style")
+            child.setAttribute("id", "styleLocation")
+
+            document.body.appendChild(child)
+        }
+
         if (lsm.getItem(name) === null) {
             update("")
         } else {

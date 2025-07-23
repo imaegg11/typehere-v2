@@ -32,4 +32,4 @@ export class localStorageManager {
     }
 }
 
-export const lsm = new localStorageManager("home")
+export const lsm = new localStorageManager("typehere")

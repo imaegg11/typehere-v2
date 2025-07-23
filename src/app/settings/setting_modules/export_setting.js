@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { lsm } from "../../utils/localStorage_manager"
 import { globalSettings } from "../settings"
-import { Toast } from "@/app/toast"
+import { Toast } from "@/app/utils/toast"
 
 export function ExportSetting(name, type) {
 
