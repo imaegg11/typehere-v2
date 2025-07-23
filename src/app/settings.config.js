@@ -1,28 +1,56 @@
-import { Settings } from "./settings/settings"
-import { ThemeSetting } from "./settings/theme_setting"
-import { SearchSetting } from "./settings/search_setting";
-import { AboutSetting } from "./settings/about_settings";
+import { useSettings } from "./settings/setting_provider";
+import { useEffect } from "react";
 
+import { 
+    ThemeSetting, 
+    AboutSetting, 
+    ExportSetting, 
+    ImportSetting, 
+    CSSSetting
+} from "./settings/all_settings"
 
-export function get_settings() {
-    const settings = Settings();
+export function SetupSettings({ onLoad }) {
+    const settings = useSettings()
 
-    const search_settings = SearchSetting('Search Shortcuts', 'Search',)
-    search_settings.add(["wiki \\v\\", "https://en.wikipedia.org/wiki/\\v\\", "#fc4e4e"])
-    search_settings.add(["gh metro", "https://github.com/wlmac/metropolis", "#fca54e"])
-    search_settings.add(["gh metro \\v\\", "https://github.com/wlmac/metropolis/pull/\\v\\", "#fce54e"])
-    search_settings.add(["gh \\v\\", "https://github.com/\\v\\", "#96fc4e"])
-    search_settings.add(["google \\v\\", "https://www.google.ca/search?q=\\v\\", "#4efce5"])
-    
+    // SETTINGS HERE
+
     const about = AboutSetting("About", "About")
     const theme = ThemeSetting("Theme", "Appearance")
-    
-    settings.add(theme)
-    settings.add(search_settings)
-    settings.add(about)
+    const exp = ExportSetting("Export Setting", "Settings")
+    const imp = ImportSetting("Import Setting", "Settings")
 
-    return settings
+    const css = CSSSetting("Custom CSS", "CSS")
+
+    const all_settings = [
+        theme,
+        css,
+        imp,
+        exp,
+        about,
+    ]
+
+    const setting_types_need_saving = [
+        "Appearance",
+        "Widgets",
+        "CSS"
+    ]
+
+    // SETTINGS END HERE
+
+    useEffect(() => {
+
+        for (let setting of all_settings) {
+            settings.add(setting)
+        }
+
+        for (let setting_type of setting_types_need_saving) {
+            settings.addNeedSaving(setting_type)
+        }
+
+        settings.load()
+        onLoad()
+
+    }, [settings])
+
+    return null
 }
-
-
-
