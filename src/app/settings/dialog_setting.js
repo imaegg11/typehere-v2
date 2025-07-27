@@ -21,7 +21,7 @@ export function DialogSettings({ onClose }) {
     useEffect(() => {
 
         const toggleSettings = (e) => {
-            if (e.key === "." && e.ctrlKey) {
+            if (e.keyCode === 190 && e.ctrlKey) {
                 setSettingsOpen(prev => !prev);
             }
         };

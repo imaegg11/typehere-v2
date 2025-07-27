@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 import { DialogSettings } from "./settings/dialog_setting";
 import { Textarea } from "./components/textarea";
+import { CommandComponent } from "./components/command";
 
 
 export default function Typehere() {
@@ -22,6 +23,7 @@ export default function Typehere() {
 
     return (
         <>
+            <CommandComponent></CommandComponent>
             <Textarea></Textarea>
             <DialogSettings onClose={() => document.getElementById("textarea").focus()}></DialogSettings>
         </>

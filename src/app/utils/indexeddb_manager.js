@@ -1,6 +1,6 @@
 import { Toast } from "./toast";
 
-export class IDM {
+class IDM {
     constructor(db_name) {
         this.db_name = db_name;
 
@@ -82,3 +82,5 @@ export class IDM {
         })
     }
 }
+
+export const idm = new IDM("typehere")
