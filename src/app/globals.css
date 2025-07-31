@@ -36,18 +36,37 @@ body {
   color: hsl(var(--text-20))
 }
 
-.group > div:nth-child(2) > div {
+.commandGroup > div:nth-child(2) > div {
   padding: 6px 8px;
 }
 
-.group > div:nth-child(1) {
+.commandGroup > div:nth-child(1) {
   padding: 6px 8px;
 }
 
-.group {
+.commandGroup {
   padding-right: 4px !important;
   padding-left: 4px !important;
   padding-top: 4px !important;
+}
+
+.commandGroup svg:not(.lucide-trash) {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.lucide-trash {
+  pointer-events: all !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.trashDiv:hover {
+  background: rgba(255, 0, 0, 0.25)
+}
+
+.trashDiv p {
+  transition: width 0.2s ease;
 }
 
 @layer base {

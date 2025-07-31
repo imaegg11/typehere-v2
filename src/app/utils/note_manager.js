@@ -1,3 +1,4 @@
+import uuidv4 from "./uuidv4"
 const { idm } = require("./indexeddb_manager")
 const { Toast } = require("./toast")
 
@@ -15,10 +16,22 @@ export class NM {
         return this.current
     }
 
+    getKeys() {
+        return this.keys
+    }
+
+    getDefault() {
+        return this.def
+    }
+
+    updateKeys() {
+        idm.putItem(this.keys)
+    }
+
     createNote(name) {
         return new Promise((resolve, reject) => {
             let currentTime = Date.now()
-    
+
             let item = {
                 "key": uuidv4(),
                 "name": name,
@@ -26,18 +39,30 @@ export class NM {
                 "creation_date": currentTime,
                 "last_edited": currentTime,
             }
-    
+
             idm.putItem(item).then(r => {
-                this.current = this.def 
-                this.keys[item] = {
-                    "default": name == "default"
+                this.current = r.key
+
+                this.keys[r.key] = {
+                    "default": name == "default",
+                    "details": {
+                        "name": r.name,
+                        "creation_date": r.creation_date,
+                        "last_edited": r.last_edited,
+                    }
                 }
 
+                this.update_textarea(r.key)
                 resolve(item)
             }).catch(error => {
                 reject(error)
             })
         })
+    }
+
+    switchToNote(key) {
+        this.update_textarea(key)
+        this.current = key
     }
 
     updateNote(key, name, content) {
@@ -56,6 +81,12 @@ export class NM {
                 "last_edited": Date.now(),
             }
 
+            this.keys[key].details = {
+                "name": item.name,
+                "creation_date": r.creation_date,
+                "last_edited": item.last_edited,
+            }           
+
             return idm.putItem(item)
         })
     }
@@ -63,12 +94,18 @@ export class NM {
     delete_note(key) {
         if (this.def == key) {
             idm.deleteItem(key).then(r => {
-                this.createNote("default").then(r => {
+                delete this.keys[key]
 
+                this.createNote("default").then(r => {
                     this.def = r.key
+                    this.updateKeys()
                 })
             });
-
+        } else {
+            idm.deleteItem(key)
+            delete this.keys[key]
+            
+            this.updateKeys()
         }
     }
 
@@ -77,14 +114,14 @@ export class NM {
 
         idm.findItem("keys").then(r => {
             if (r == undefined) {
+                this.keys["key"] = "keys"
                 this.createNote("default").then(r => {
-                    this.keys["key"] = "keys"
                     this.def = r.key
-
-                    idm.putItem(this.keys)
+                    this.updateKeys()
                 })
             } else {
                 this.keys = r
+
                 for (let key of Object.keys(this.keys)) {
                     if (this.keys[key].default) {
                         this.def = key
@@ -97,3 +134,5 @@ export class NM {
         })
     }
 }
+
+export const nm = new NM()
