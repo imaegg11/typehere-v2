@@ -15,11 +15,13 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 
-import { BookPlus, Book, Trash, } from "lucide-react";
+import { BookPlus, Book, Trash, Plus, } from "lucide-react";
 import { useEffect, useState } from "react"
 import { nm } from "../utils/note_manager";
 import { idm } from "../utils/indexeddb_manager";
 import Fuse from "fuse.js";
+import { Backdrop } from "../utils/backdrop";
+import { formatDate } from "../utils/formatDate";
 
 
 export function CommandComponent() {
@@ -95,33 +97,6 @@ export function CommandComponent() {
         return fuse.search(value).sort()
     }
 
-    const formatDate = (time) => {
-        const past = new Date(time)
-        const now = new Date()
-
-        const diffMS = now - past
-
-        if (diffMS > 86400000) {
-            const day = String(past.getDate()).padStart(2, '0')
-            const month = String(past.getMonth() + 1).padStart(2, '0')
-            const year = past.getFullYear()
-
-            return `${day}/${month}/${year}`
-        } else {
-            let hour = past.getHours();
-            const minute = String(past.getMinutes()).padStart(2, '0')
-            const second = String(past.getSeconds()).padStart(2, '0')
-            const trail = hour >= 12 ? 'PM' : 'AM'
-
-
-            if (hour > 12) hour %= 12
-            else if (hour == 0) hour = 12
-
-            return `${hour}:${minute}:${second} ${trail}`
-        }
-    }
-
-
     const getCommand = () => {
 
         const searchResults = fuseSearch()
@@ -147,7 +122,7 @@ export function CommandComponent() {
 
                                 return (
                                     <CommandItem className="commandItem" onSelect={() => { nm.switchToNote(value.item.key); resetCommand(false) }} key={value.item.key}>
-                                        <Book />
+                                        {/* <Book /> */}
                                         <div>
                                             <p className="line-clamp-1">{value.item.name}</p>
                                             <div className="text-xs muted">
@@ -181,7 +156,7 @@ export function CommandComponent() {
                             create()
                             setCMDOpen(false)
                         }}>
-                            <BookPlus className=""></BookPlus>
+                            <Plus className=""></Plus>
                             <p className="line-clamp-1">Create note: {value}</p>
                         </CommandItem>
                     </CommandGroup>
@@ -194,7 +169,7 @@ export function CommandComponent() {
     return (
         <Dialog modal={false} open={cmdOpen} onOpenChange={resetCommand} className="rounded-lg border shadow-md w-[50%] h-[50%]">
             <DialogTitle></DialogTitle>
-            {cmdOpen && <div data-state={cmdOpen ? "open" : "closed"} className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"></div>}
+            <Backdrop open={cmdOpen}></Backdrop>
             <DialogContent className="overflow-hidden p-0 [&>button]:hidden">
                 <Command shouldFilter={false}>
                     <CommandInput placeholder="Type a command or search..." onValueChange={(e) => setValue(e)} />

@@ -120,7 +120,7 @@ export function Settings() {
                     </ScrollArea>
                 </div>
                 {settingTypesNeedSaving.includes(settingType) ? <div className="w-full flex justify-end px-4">
-                    <Button onClick={() => savePreferences()} className="bg-[hsl(var(--accent-color))] text hover:bg-[hsl(var(--buttons-secondary))]">Save Preferences</Button>
+                    <Button onClick={() => savePreferences()} className="bg-[hsl(var(--accent-color))] text-[hsl(var(--accent-text))] hover:bg-[hsl(var(--buttons-secondary))]">Save Preferences</Button>
                 </div> : <></>}
             </div>
         )

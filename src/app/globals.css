@@ -36,11 +36,11 @@ body {
   color: hsl(var(--text-20))
 }
 
-.commandGroup > div:nth-child(2) > div {
+.commandGroup>div:nth-child(2)>div {
   padding: 6px 8px;
 }
 
-.commandGroup > div:nth-child(1) {
+.commandGroup>div:nth-child(1) {
   padding: 6px 8px;
 }
 
@@ -71,18 +71,6 @@ body {
 
 @layer base {
   :root {
-    --text: 240, 10%, 4%;
-    --text-20: 240, 10%, 24%;
-    --text-40: 240, 10%, 44%;
-    --text-70: 240, 10%, 74%;
-    --background: 240, 10%, 96%;
-    --background-5: 240, 10%, 91%;
-    --background-10: 240, 10%, 86%;
-    --background-20: 240, 10%, 76%;
-    --accent-color: 211, 71%, 47%;
-    --buttons-primary: 211, 100%, 62%;
-    --buttons-secondary: 211, 65%, 68%;
-
     --foreground: var(--text);
     --card: var(--background);
     --card-foreground: var(--test);
@@ -118,7 +106,6 @@ body {
   }
 
   .dark {
-
     --text: 240, 10%, 96%;
     --text-20: 240, 10%, 76%;
     --text-40: 240, 10%, 56%;
@@ -131,37 +118,23 @@ body {
     --buttons-primary: 210, 64%, 32%;
     --buttons-secondary: 211, 71%, 53%;
 
-    --foreground: var(--text);
-    --card: var(--background);
-    --card-foreground: var(--test);
-    --popover: var(--background);
-    --popover-foreground: var(--text);
-    --primary: var(--text);
-    --primary-foreground: var(--background-5);
-    --secondary: var(--background-10);
-    --secondary-foreground: var(--text);
-    --muted: var(--background-10);
-    --muted-foreground: var(--text-40);
-    --accent: var(--background-10);
-    --accent-foreground: var(--text);
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: var(--text);
-    --border: var(--background-10);
-    --input: var(--background-10);
-    --ring: var(--text-40);
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: var(--background-5);
-    --sidebar-foreground: var(--text);
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: var(--text);
-    --sidebar-accent: var(--background-10);
-    --sidebar-accent-foreground: var(--text);
-    --sidebar-border: var(--background-10);
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --accent-text: var(--text)
+  }
+
+  .light {
+    --text: 240, 10%, 4%;
+    --text-20: 240, 10%, 24%;
+    --text-40: 240, 10%, 44%;
+    --text-70: 240, 10%, 74%;
+    --background: 240, 10%, 96%;
+    --background-5: 240, 10%, 91%;
+    --background-10: 240, 10%, 86%;
+    --background-20: 240, 10%, 76%;
+    --accent-color: 211, 71%, 47%;
+    --buttons-primary: 211, 100%, 62%;
+    --buttons-secondary: 211, 65%, 68%;
+
+    --accent-text: var(--background)
   }
 }
 

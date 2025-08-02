@@ -7,6 +7,10 @@ class IDM {
         this.db = null;
     }
 
+    getDB() {
+        return this.db
+    }
+
     init() {
         return new Promise((resolve, reject) => {
             const open_request = window.indexedDB.open(this.db_name, 1);

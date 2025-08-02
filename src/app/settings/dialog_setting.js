@@ -12,11 +12,10 @@ import {
 } from "@/components/ui/dialog"
 
 import { useState, useEffect } from "react";
+import { Backdrop } from "../utils/backdrop";
 
-export function DialogSettings({ onClose }) {
+export function DialogSettings({ onClose, settingsReady, setSettingsReady }) {
     const [settingsOpen, setSettingsOpen] = useState(false)
-
-    const [settingsReady, setSettingsReady] = useState(false)
 
     useEffect(() => {
 
@@ -35,7 +34,7 @@ export function DialogSettings({ onClose }) {
             <SetupSettings onLoad={() => setSettingsReady(true)} />
 
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen} modal={false}>
-                {settingsOpen && <div data-state={settingsOpen ? "open" : "closed"} className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"></div>}
+                <Backdrop open={settingsOpen}></Backdrop>
                 <DialogContent className="min-w-fit h-[80vh] [&>button]:hidden" onOpenAutoFocus={(e) => {
                     e.preventDefault()
                     document.activeElement.blur()

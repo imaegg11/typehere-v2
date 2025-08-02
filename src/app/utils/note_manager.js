@@ -28,7 +28,7 @@ export class NM {
         idm.putItem(this.keys)
     }
 
-    createNote(name) {
+    createNote(name, isDefault = false) {
         return new Promise((resolve, reject) => {
             let currentTime = Date.now()
 
@@ -44,7 +44,7 @@ export class NM {
                 this.current = r.key
 
                 this.keys[r.key] = {
-                    "default": name == "default",
+                    "default": isDefault,
                     "details": {
                         "name": r.name,
                         "creation_date": r.creation_date,
@@ -96,7 +96,7 @@ export class NM {
             idm.deleteItem(key).then(r => {
                 delete this.keys[key]
 
-                this.createNote("default").then(r => {
+                this.createNote("default", true).then(r => {
                     this.def = r.key
                     this.updateKeys()
                 })
@@ -115,7 +115,7 @@ export class NM {
         idm.findItem("keys").then(r => {
             if (r == undefined) {
                 this.keys["key"] = "keys"
-                this.createNote("default").then(r => {
+                this.createNote("default", true).then(r => {
                     this.def = r.key
                     this.updateKeys()
                 })
