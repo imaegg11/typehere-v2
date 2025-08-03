@@ -1,13 +1,5 @@
 import { useTheme } from "next-themes";
-import { Check, Laptop } from "lucide-react";
 import { useEffect, useState } from "react"
-
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-  } from "@/components/ui/tooltip"
 
 import { lsm } from '../../utils/localStorage_manager';
 
@@ -15,6 +7,7 @@ export function ThemeSetting(name, type) {
 
     let gTheme = "system"
     const { theme, setTheme, systemTheme } = useTheme(gTheme);
+    let updateAfterImport = null
 
     let updateLocalstorageSettings = null;
 
@@ -32,24 +25,25 @@ export function ThemeSetting(name, type) {
 
     const import_setting = (import_object) => {
         update(import_object["theme"])
+
+        if (updateAfterImport !== null) updateAfterImport()
     }
 
     const load = () => {
-        if (lsm.getItem("theme_setting") === null) {
+        if (lsm.getItem(name) === null) {
             update("system")
         } else {
-            import_setting(lsm.getItem("theme_setting"))
+            import_setting(lsm.getItem(name))
         }
     }
 
     const update = (value) => {
-        
-        gTheme = value 
-        
-        lsm.setItem("theme_setting", get());
+
+        gTheme = value
+
+        lsm.setItem(name, get());
 
         setTheme(value);
-
         // Bruh it literally just works (I'm going to have to fix something to get custom themes working eventually though)
 
         // if (value == "system") {
@@ -70,23 +64,17 @@ export function ThemeSetting(name, type) {
         let data = [
             {
                 "themeName": "light",
-                "theme": "light",
-                "displayColor": "white",
-                "children": <></>,
+                "theme": "Light",
                 "selected": false
             },
             {
                 "themeName": "dark",
-                "theme": "dark",
-                "displayColor": "black",
-                "children": <></>,
+                "theme": "Dark",
                 "selected": false
             },
             {
                 "themeName": "system",
-                "theme": systemTheme,
-                "displayColor": "transparent",
-                "children": <Laptop className="fixed text"></Laptop>,
+                "theme": "System",
                 "selected": false
             }
         ]
@@ -112,43 +100,28 @@ export function ThemeSetting(name, type) {
         }
 
         updateLocalstorageSettings = () => update(themes.filter(theme => theme.selected == true)[0].themeName)
-
-        useEffect(() => {
-            update_theme(gTheme)
-        }, [gTheme])
+        updateAfterImport = () => update_theme(gTheme)
 
         return isHidden ? <div className="hidden"></div> : (
             <div className="text mb-4">
                 <p className="font-semibold">{name}</p>
                 <div className="flex justify-between content-center items-center">
-					<p className="content-center text-sm">Display Theme</p>
-                    <div id="themes" className="flex items-center">
+                    <div id="themes" className="text-sm flex flex-wrap justify-center items-center gap-1 w-full mx-2 mt-2 ring-1 p-1 ring-[hsl(var(--background-10))] rounded-[5px]">
                         {
                             themes.map((value, index) => {
+
                                 return (
-                                    <TooltipProvider key={index}>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <div 
-                                                    className={`h-8 w-8 ml-auto rounded-md mr-2 border-2 cursor-pointer flex justify-center items-center ${value.selected ? "border-green-600" : "border-[#595959]"}`}
-                                                    style={{
-                                                        backgroundColor: value.displayColor
-                                                    }}
-                                                    onClick={() => update_theme(value.themeName)}
-                                                >
-                                                    {value.children}
-                                                    {/* <Check size={20} className={`${value.selected ? "" : "hidden"} fixed]`} color="#16a34a"></Check> */}
-                                                    <div className={`${value.selected ? "" : "hidden"} absolute bg-green-600 rounded-full h-2 w-2`}></div>
-                                                    
-                                                </div>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>{value.themeName} theme</p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
+                                    <div
+                                        key={index}
+                                        className={`${value.selected ? "ring-2 text" : "muted hover:text-[hsl(var(--text))]"}` + " transition-all cursor-pointer ring-[hsl(var(--accent-color))] py-2 px-6 text-center rounded-[5px] flex-1 select-none whitespace-nowrap"}
+                                        onClick={() => update_theme(value.themeName)}
+                                        style={{
+                                            backgroundColor: value.selected ? "color-mix(in srgb, hsl(var(--accent-color)) 15%, transparent)" : ""
+                                        }}
+                                    >
+                                        <p>{value.theme}</p>
+                                    </div>
                                 )
-                                
                             })
                         }
                     </div>
@@ -157,7 +130,7 @@ export function ThemeSetting(name, type) {
         )
     }
 
-    const render = (key, r) => <Component key={key} isHidden={r}/>
+    const render = (key, r) => <Component key={key} isHidden={r} />
 
     return {
         "export": export_setting,
@@ -165,8 +138,8 @@ export function ThemeSetting(name, type) {
         "load": load,
         "update": update,
         "get": get,
-        "save": save_preferences, 
-        "render": render, 
+        "save": save_preferences,
+        "render": render,
         "name": name,
         "type": type,
     }

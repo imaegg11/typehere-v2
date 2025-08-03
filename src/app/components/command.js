@@ -42,14 +42,8 @@ export function CommandComponent() {
                 resetCommand(prev => !prev);
             } else if (e.key == "d" && e.ctrlKey) {
                 e.preventDefault();
-                const x = indexedDB.deleteDatabase("typehere");
-
-                x.onsuccess = () => {
-                    idm.init().then(r => {
-                        nm.init_notes(update_textarea)
-                    })
-                }
-
+                // Well fuck nvm we are so back :speaking_head:  
+                document.execCommand('insertText', false, "balls")
             }
         };
 
@@ -103,55 +97,48 @@ export function CommandComponent() {
 
         return (
             <CommandList>
+                <CommandGroup heading="Notes" className="commandGroup">
+                    {
+                        searchResults.map(value => {
+                            let data = nm.getKeys()[value.item.key].details
 
-                {searchResults.length != 0 && (
-                    <CommandGroup heading="Notes" className="commandGroup">
-                        {
-                            searchResults.map(value => {
-                                let data = nm.getKeys()[value.item.key].details
+                            const animateWidthIn = (key) => {
+                                let e = document.getElementById(key)
+                                const fullWidth = e.children[1].scrollWidth;
+                                e.children[1].style.width = fullWidth + 'px';
+                            }
 
-                                const animateWidthIn = (key) => {
-                                    let e = document.getElementById(key)
-                                    const fullWidth = e.children[1].scrollWidth;
-                                    e.children[1].style.width = fullWidth + 'px';
-                                }
+                            const animateWidthOut = (key) => {
+                                document.getElementById(key).children[1].style.width = '0px';
+                            }
 
-                                const animateWidthOut = (key) => {
-                                    document.getElementById(key).children[1].style.width = '0px';
-                                }
-
-                                return (
-                                    <CommandItem className="commandItem" onSelect={() => { nm.switchToNote(value.item.key); resetCommand(false) }} key={value.item.key}>
-                                        {/* <Book /> */}
-                                        <div>
-                                            <p className="line-clamp-1">{value.item.name}</p>
-                                            <div className="text-xs muted">
-                                                <p className="line-clamp-1">{formatDate(data.creation_date)} - {formatDate(data.last_edited)}</p>
-                                            </div>
+                            return (
+                                <CommandItem className="commandItem" onSelect={() => { nm.switchToNote(value.item.key); resetCommand(false) }} key={value.item.key}>
+                                    <div>
+                                        <p className="line-clamp-1">{value.item.name}</p>
+                                        <div className="text-xs muted">
+                                            <p className="line-clamp-1">{formatDate(data.creation_date)} - {formatDate(data.last_edited)}</p>
                                         </div>
-                                        {value.item.key != nm.getDefault() &&
-                                            <div onMouseEnter={() => animateWidthIn(value.item.key)} onMouseLeave={() => animateWidthOut(value.item.key)} id={value.item.key} className="trashDiv flex p-1 ml-auto rounded cursor-pointer text-red-600 w-max [&_p]:transition-all" onClick={(e) => {
-                                                e.stopPropagation();
-                                                nm.delete_note(value.item.key);
-                                                nm.switchToNote(nm.getDefault());
-                                                resetCommand(false);
-                                            }}>
-                                                <Trash></Trash>
-                                                <p className="mx-1 w-0 overflow-hidden">Delete</p>
-                                            </div>
-                                        }
+                                    </div>
+                                    {value.item.key != nm.getDefault() &&
+                                        <div onMouseEnter={() => animateWidthIn(value.item.key)} onMouseLeave={() => animateWidthOut(value.item.key)} id={value.item.key} className="trashDiv flex p-1 ml-auto rounded cursor-pointer text-red-600 w-max [&_p]:transition-all" onClick={(e) => {
+                                            e.stopPropagation();
+                                            nm.delete_note(value.item.key);
+                                            nm.switchToNote(nm.getDefault());
+                                            resetCommand(false);
+                                        }}>
+                                            <Trash></Trash>
+                                            <p className="mx-1 w-0 overflow-hidden">Delete</p>
+                                        </div>
+                                    }
 
-                                        <span className="hidden">{value.item.key}</span>
-                                    </CommandItem>
-                                )
-                            })
-                        }
-                    </CommandGroup>
-                )}
-                {/* <CommandSeparator /> */}
-                {
-                    value != "" &&
-                    <CommandGroup heading="Settings" className="commandGroup">
+                                    <span className="hidden">{value.item.key}</span>
+                                </CommandItem>
+                            )
+                        })
+                    }
+                    {
+                        value != "" &&
                         <CommandItem onSelect={() => {
                             create()
                             setCMDOpen(false)
@@ -159,8 +146,9 @@ export function CommandComponent() {
                             <Plus className=""></Plus>
                             <p className="line-clamp-1">Create note: {value}</p>
                         </CommandItem>
-                    </CommandGroup>
-                }
+                    }
+                </CommandGroup>
+
             </CommandList>
         )
     }

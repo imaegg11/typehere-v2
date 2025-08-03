@@ -6,7 +6,8 @@ import {
     AboutSetting, 
     ExportSetting, 
     ImportSetting, 
-    CSSSetting
+    CSSSetting,
+    TypehereSetting
 } from "./settings/all_settings"
 
 export function SetupSettings({ onLoad }) {
@@ -16,14 +17,16 @@ export function SetupSettings({ onLoad }) {
 
     const about = AboutSetting("About", "About")
     const theme = ThemeSetting("Theme", "Appearance")
-    const exp = ExportSetting("Export Setting", "Settings")
-    const imp = ImportSetting("Import Setting", "Settings")
+    const exp = ExportSetting("Export Setting", "Import/Export")
+    const imp = ImportSetting("Import Setting", "Import/Export")
+    const th = TypehereSetting("Textarea Settings", "Textarea")
 
     const css = CSSSetting("Custom CSS", "CSS")
 
     const all_settings = [
         theme,
         css,
+        th,
         imp,
         exp,
         about,
@@ -32,7 +35,8 @@ export function SetupSettings({ onLoad }) {
     const setting_types_need_saving = [
         "Appearance",
         "Widgets",
-        "CSS"
+        "CSS",
+        "Textarea"
     ]
 
     // SETTINGS END HERE

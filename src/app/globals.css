@@ -69,6 +69,14 @@ body {
   transition: width 0.2s ease;
 }
 
+.smallWidth {
+  padding: 1rem 20% !important
+}
+
+.hideScrollbar {
+  scrollbar-width: none;
+}
+
 @layer base {
   :root {
     --foreground: var(--text);

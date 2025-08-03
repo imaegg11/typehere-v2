@@ -30,7 +30,7 @@ export function Textarea() {
         <textarea
             id="textarea"
             autoFocus
-            className="font-mono h-[calc(100vh-1px)] w-full outline-none border-none resize-none m-0 bg-inherit p-4 text-lg text"
+            className="font-mono h-[calc(100vh-1px)] w-full outline-none border-none resize-none m-0 bg-inherit p-4 text-lg text transition-all"
             onChange={(e) => onType(e.target.value)}
         ></textarea>
     )

@@ -4,12 +4,24 @@ export function Setting(name, type) {
 
     let updateLocalstorageSettings = null;
 
-    const export_setting = () => {}
+    const export_setting = () => {
+        let export_object = {
+            [name]: get()
+        }
 
+        return export_object;
+    }
+    
     const import_setting = (import_object) => {}
 
-    const load = () => {}
-
+    const load = () => {
+        if (lsm.getItem(name) === null) {
+            update() // HERE
+        } else {
+            import_setting(lsm.getItem(name))
+        }
+    }
+    
     const update = (value) => {}
 
     const save_preferences = () => {
