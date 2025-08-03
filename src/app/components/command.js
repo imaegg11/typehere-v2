@@ -43,7 +43,7 @@ export function CommandComponent() {
             } else if (e.key == "d" && e.ctrlKey) {
                 e.preventDefault();
                 // Well fuck nvm we are so back :speaking_head:  
-                document.execCommand('insertText', false, "balls")
+                document.execCommand('insertText', false, "hi")
             }
         };
 

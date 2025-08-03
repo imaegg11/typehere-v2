@@ -50,7 +50,6 @@ export function TypehereSetting(name, type) {
     }
 
     const update = (value) => {
-        console.log(value)
         options = value
 
         lsm.setItem(name, get());
@@ -88,7 +87,7 @@ export function TypehereSetting(name, type) {
 		}
         
         updateAfterImport = () => setOpt(options)
-        
+
         return isHidden ? <div className="hidden"></div> : (
             <div className="text">
                 <p className="font-semibold">{name}</p>

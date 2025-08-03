@@ -85,6 +85,24 @@ class IDM {
             }
         })
     }
+
+    exportDB() {
+        return new Promise((resolve, reject) => {
+            const tx = this.db.transaction("storage", "readonly");
+            const store = tx.objectStore("storage");
+
+            let request = store.getAll();
+
+            request.onerror = (event) => {
+                Toast.error("Failed to export content")
+                reject(event.target.error)
+            };
+
+            request.onsuccess = (event) => {
+                resolve(event.target.result)
+            };
+        })
+    }
 }
 
 export const idm = new IDM("typehere")

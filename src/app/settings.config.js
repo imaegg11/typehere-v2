@@ -7,7 +7,9 @@ import {
     ExportSetting, 
     ImportSetting, 
     CSSSetting,
-    TypehereSetting
+    TypehereSetting,
+    ExportDB,
+    ImportDB,
 } from "./settings/all_settings"
 
 export function SetupSettings({ onLoad }) {
@@ -20,6 +22,8 @@ export function SetupSettings({ onLoad }) {
     const exp = ExportSetting("Export Setting", "Import/Export")
     const imp = ImportSetting("Import Setting", "Import/Export")
     const th = TypehereSetting("Textarea Settings", "Textarea")
+    const expDB = ExportDB("Export Content", "Import/Export")
+    const impDB = ImportDB("Import Content", "Import/Export")
 
     const css = CSSSetting("Custom CSS", "CSS")
 
@@ -30,6 +34,8 @@ export function SetupSettings({ onLoad }) {
         imp,
         exp,
         about,
+        impDB,
+        expDB,
     ]
 
     const setting_types_need_saving = [
