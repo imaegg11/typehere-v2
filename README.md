@@ -1,19 +1,16 @@
-Simple home page written in react using Next.js 
+# Typehere++ 
 
----
+A https://typehere.cc/ ([Link to original github repo](https://github.com/Squadrick/typehere)) clone with more functionality 
+- Saves after refresh (Everything is saved to indexedDB)
+- Settings menu to modify everything (Saved to localStorage)
+- Can handle multiple notes (Switch using Ctrl-K)
+- Statistics of your notes (Name, creation date, last edited, size in bytes, word counts, reading/speaking time)
+- Fuzzy search using Fuse.js to find your notes
+- Export and import functionality (Export and import both the content and the settings)
+- Supports indentations with tabs (Works with undo/redo)
+- Modern UI
 
-Search bar allows for prefix based searching, where prefixes can change the end url destination 
-
-All search settings is stored on your browser in localStorage 
-
-`Ctrl + Enter` to open in new window
-
-`Ctrl + .` to pull up the settings
-
----
-
-Run development server with
-```bash
-npm run dev
-```
-and it view on [http://localhost:3000](http://localhost:3000)
+Keybinds:
+- `Ctrl + K`: Opens the search menu to find the notes
+- `Ctrl + .`: Opens the settings menu
+- `Ctrl + J`: Opens the sidebar

@@ -156,7 +156,7 @@ export function CommandComponent() {
             <Backdrop open={cmdOpen}></Backdrop>
             <DialogContent className="overflow-hidden p-0 [&>button]:hidden">
                 <Command shouldFilter={false}>
-                    <CommandInput placeholder="Type a command or search..." onValueChange={(e) => setValue(e)} />
+                    <CommandInput placeholder="Search for a note..." onValueChange={(e) => setValue(e)} />
                     {getCommand()}
                 </Command>
             </DialogContent>
