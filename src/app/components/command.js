@@ -40,10 +40,6 @@ export function CommandComponent() {
             if (e.keyCode === 75 && e.ctrlKey) {
                 e.preventDefault();
                 resetCommand(prev => !prev);
-            } else if (e.key == "d" && e.ctrlKey) {
-                e.preventDefault();
-                // Well fuck nvm we are so back :speaking_head:  
-                document.execCommand('insertText', false, "hi")
             }
         };
 

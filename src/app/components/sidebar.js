@@ -110,7 +110,6 @@ export function Sidebar() {
 
             let words = data.content.split(" ").filter(word => word != "").length
 
-            console.log(words)
             return (
                 <>
                     <div className="mt-4 items-center flex flex-wrap" id="sheetHeader">
