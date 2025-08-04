@@ -65,6 +65,24 @@ export function Textarea() {
         return false
     }
 
+    const isCursorAtSEndOfLine = (pos) => {
+        let el = document.getElementById("textarea")
+        let value = el.value
+
+        let arr = value.split("\n")
+
+        let counter = 0
+        for (let i = 0; i < arr.length; i++) {
+            if (counter > pos) {
+                return counter == (pos + 1)
+            }
+
+            counter += arr[i].length + 1
+        }
+
+        return false
+    }
+
     const newline = () => {
         let el = document.getElementById("textarea")
         let value = el.value
@@ -92,9 +110,9 @@ export function Textarea() {
         let endLine = getLineSelected(posEnd, 0)
 
         if (startLine == endLine) {
-            if (isCursorAtStartOfLine(posStart)) {
+            if (isCursorAtStartOfLine(posStart) && isCursorAtSEndOfLine(posEnd) && posEnd != posStart) {
                 document.execCommand("insertText", false, "\t" + arr[startLine])
-                if (posStart != posEnd) el.setSelectionRange(posStart, posEnd + 1)
+                el.setSelectionRange(posStart, posEnd + 1)
             }
             else document.execCommand("insertText", false, "\t")
         } else {
