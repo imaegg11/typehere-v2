@@ -13,6 +13,7 @@ import { formatDate } from "../utils/formatDate";
 import { formatTime } from "../utils/formatTime"
 import { Check, Copy, Edit } from "lucide-react";
 import { Toast } from "../utils/toast";
+import { formatBytes } from "../utils/formatBytes";
 
 export function Sidebar() {
     const [sheetOpen, setSheetOpen] = useState(false)
@@ -123,6 +124,7 @@ export function Sidebar() {
                             <p className="text-base">Info</p>
                             <p>Creation Date: {formatDate(data.creation_date)}</p>
                             <p>Last Edited: {formatDate(data.creation_date)}</p>
+                            <p>Size: {formatBytes(new Blob([data.content]).size)}</p>
                             <div className="flex justify-between items-center">
                                 <p>Key: {data.key} </p>
                                 <div className="w-4 h-4 hover:cursor-pointer" id="uuidCopy" onClick={() => copy()}>
