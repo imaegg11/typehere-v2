@@ -2,8 +2,7 @@
 const nextConfig = {
     distDir: 'out',
     output: 'export',
-    // basePath: '/home',
-    reactStrictMode: false,
+    // basePath: '/typehere-v2',
 };
 
 export default nextConfig;
