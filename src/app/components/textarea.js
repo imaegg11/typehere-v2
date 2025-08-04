@@ -73,11 +73,12 @@ export function Textarea() {
 
         let counter = 0
         for (let i = 0; i < arr.length; i++) {
+            counter += arr[i].length + 1
+
             if (counter > pos) {
                 return counter == (pos + 1)
             }
 
-            counter += arr[i].length + 1
         }
 
         return false
@@ -110,6 +111,7 @@ export function Textarea() {
         let endLine = getLineSelected(posEnd, 0)
 
         if (startLine == endLine) {
+
             if (isCursorAtStartOfLine(posStart) && isCursorAtSEndOfLine(posEnd) && posEnd != posStart) {
                 document.execCommand("insertText", false, "\t" + arr[startLine])
                 el.setSelectionRange(posStart, posEnd + 1)
