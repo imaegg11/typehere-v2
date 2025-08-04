@@ -94,7 +94,7 @@ export function Textarea() {
         if (startLine == endLine) {
             if (isCursorAtStartOfLine(posStart)) {
                 document.execCommand("insertText", false, "\t" + arr[startLine])
-                el.setSelectionRange(posStart, posEnd + 1)
+                if (posStart != posEnd) el.setSelectionRange(posStart, posEnd + 1)
             }
             else document.execCommand("insertText", false, "\t")
         } else {
