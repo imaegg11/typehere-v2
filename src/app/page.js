@@ -6,6 +6,7 @@ import { DialogSettings } from "./settings/dialog_setting";
 import { Textarea } from "./components/textarea";
 import { CommandComponent } from "./components/command";
 import { Sidebar } from "./components/sidebar";
+import { Replace } from "./components/replace";
 
 
 export default function Typehere() {
@@ -28,6 +29,7 @@ export default function Typehere() {
             <CommandComponent></CommandComponent>
             <Textarea></Textarea>
             <Sidebar></Sidebar>
+            <Replace></Replace>
             <DialogSettings 
                 onClose={() => document.getElementById("textarea").focus()}
                 settingsReady={settingsReady}

@@ -127,9 +127,15 @@ export class NM {
                         this.def = key
                         this.current = this.def
                     }
-                }
 
-                this.update_textarea(this.def)
+                }
+                
+                let most_recent = Object.keys(this.keys)
+                    .filter(key => key != 'key')
+                    .map(key => [this.keys[key].details.last_edited, key])
+                    .sort((a, b) => b[0] - a[0])[0]
+
+                this.update_textarea(most_recent[1])
             }
         })
     }

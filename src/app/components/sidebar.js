@@ -187,7 +187,7 @@ export function Sidebar() {
     }
 
     return (
-        <Sheet open={sheetOpen} onOpenChange={setSheetOpen} modal={false} className>
+        <Sheet open={sheetOpen} onOpenChange={setSheetOpen} modal={false}>
             <DialogTitle></DialogTitle>
             <Backdrop open={sheetOpen}></Backdrop>
             <SheetContent className="[&>button]:hidden text" onOpenAutoFocus={(e) => {
