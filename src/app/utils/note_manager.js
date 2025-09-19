@@ -125,16 +125,16 @@ export class NM {
                 for (let key of Object.keys(this.keys)) {
                     if (this.keys[key].default) {
                         this.def = key
-                        this.current = this.def
                     }
-
+                    
                 }
                 
                 let most_recent = Object.keys(this.keys)
-                    .filter(key => key != 'key')
-                    .map(key => [this.keys[key].details.last_edited, key])
-                    .sort((a, b) => b[0] - a[0])[0]
-
+                .filter(key => key != 'key')
+                .map(key => [this.keys[key].details.last_edited, key])
+                .sort((a, b) => b[0] - a[0])[0]
+                
+                this.current = most_recent[1]
                 this.update_textarea(most_recent[1])
             }
         })
